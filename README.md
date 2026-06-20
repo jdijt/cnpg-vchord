@@ -1,6 +1,6 @@
 # cnpg-vchord
 
-Packages [VectorChord](https://github.com/tensorchord/VectorChord) as a
+Packages [VectorChord](https://github.com/supervc-stack/VectorChord) as a
 [CloudNativePG extension image volume](https://cloudnative-pg.io/docs/current/imagevolume_extensions/),
 so it can be mounted into CNPG-managed PostgreSQL clusters that use the
 **minimal** base images (which ship without bundled extensions).
@@ -13,18 +13,15 @@ layout CloudNativePG expects:
 /share/extension/vchord*    # extension_control_path (default /share)
 ```
 
-It is never executed — the `.so` is loaded by the PostgreSQL container, which
-provides glibc/libgcc.
-
 ## Images
 
 Published to `ghcr.io/jdijt/cnpg-vchord`, multi-arch (`amd64`, `arm64`), tagged:
 
 ```
-ghcr.io/jdijt/cnpg-vchord:<vchord-version>-<pg-major>-trixie
+ghcr.io/jdijt/cnpg-vchord:<vchord-version>-<build-timestamp>-<pg-major>-trixie
 ```
 
-e.g. `ghcr.io/jdijt/cnpg-vchord:1.1.1-18-trixie`.
+e.g. `ghcr.io/jdijt/cnpg-vchord:1.1.1-18-20260620183030-trixie`.
 
 PostgreSQL majors 14–18 are built (VectorChord 1.1.x ships no PG 13 package).
 
@@ -75,7 +72,7 @@ docker buildx build \
   --build-arg PG_MAJOR=18 \
   --build-arg VCHORD_VERSION=1.1.1 \
   --platform linux/amd64 \
-  -f Containerfile -t cnpg-vchord:1.1.1-18-trixie .
+  -f Containerfile .
 ```
 
 ## Licensing
@@ -84,7 +81,6 @@ The **packaging** in this repository (Containerfile, workflows, docs) is license
 under [Apache-2.0](LICENSE).
 
 The packaged software — **VectorChord** — is **not** covered by that license. It
-is distributed by tensorchord under the **GNU Affero General Public License
-v3.0 (AGPL-3.0)**. The container images produced here embed VectorChord binaries
-and are therefore subject to the AGPL-3.0 for those components. See
-[NOTICE](NOTICE).
+is distributed under the **GNU Affero General Public License 3.0 (AGPL-3.0)** or **Elastic License v2 (ELv2)**. 
+The container images produced here embed VectorChord binaries and are therefore subject one of these licenses for those components. 
+See [NOTICE](NOTICE).

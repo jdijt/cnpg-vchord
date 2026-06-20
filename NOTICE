@@ -9,11 +9,12 @@ LICENSE file.
 
 This packaging does NOT relicense VectorChord. VectorChord is a separate work,
 copyright its respective authors (tensorchord and contributors), distributed
-under the GNU Affero General Public License, version 3.0 (AGPL-3.0):
+under the GNU Affero General Public License, version 3.0 (AGPL-3.0) or 
+Elastic License V2 (ELv2)
 
-    https://github.com/tensorchord/VectorChord
+    https://github.com/supervc-stack/VectorChord
 
 The container images produced from this repository embed unmodified VectorChord
-binaries (extracted from the official tensorchord release .deb packages). Those
-binaries remain governed by the AGPL-3.0. Redistribution and network use of the
-images are subject to that license with respect to the VectorChord components.
+binaries (extracted from the official release .deb packages). Those binaries 
+remain governed by their respective licenses. Redistribution and network use of 
+the images are subject to that license with respect to the VectorChord components.
