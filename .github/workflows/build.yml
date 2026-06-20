@@ -1,0 +1,55 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  attestations: write
+
+env:
+  VCHORD_VERSION: '1.1.1'
+  IMAGE: ghcr.io/jdijt/cnpg-vchord
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # vchord >= 1.1.1 ships debs for PG 14-18 (no 13).
+        pg_major: [14, 15, 16, 17, 18]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-qemu-action@v3
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Containerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          provenance: false
+          build-args: |
+            PG_MAJOR=${{ matrix.pg_major }}
+            VCHORD_VERSION=${{ env.VCHORD_VERSION }}
+          tags: ${{ env.IMAGE }}:${{ env.VCHORD_VERSION }}-${{ matrix.pg_major }}-trixie
+
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.IMAGE }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
