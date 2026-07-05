@@ -13,8 +13,11 @@
 
 ARG PG_MAJOR=18
 ARG VCHORD_VERSION=1.1.1
+# Base image for the build stage. Overridable so CI can pull it from a mirror
+# (e.g. the homelab Harbor docker-proxy) instead of Docker Hub directly.
+ARG BASE_IMAGE=debian:trixie-slim
 
-FROM debian:trixie-slim AS builder
+FROM ${BASE_IMAGE} AS builder
 ARG PG_MAJOR
 ARG VCHORD_VERSION
 # Provided automatically by buildx, one value per --platform (amd64, arm64).
