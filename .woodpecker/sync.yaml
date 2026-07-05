@@ -1,0 +1,26 @@
+# Export: Forgejo main -> public GitHub mirror (ITERATIVE, real history), via the
+# centralized copybara-sync plugin. Homelab-only files (.woodpecker/**) are kept
+# off GitHub. Pushes as a GitHub App, so the GitHub Actions build still fires.
+when:
+  - event: push
+    branch: main
+
+steps:
+  - name: export
+    image: harbor.gw.derfniw-dev.net/homeinfra/copybara-sync:latest
+    settings:
+      direction: export
+      github_url: https://github.com/jdijt/cnpg-vchord.git
+      excludes:
+        - ".woodpecker/**"
+        - ".claude/**"
+      forgejo_user:
+        from_secret: forgejo-bot-user
+      forgejo_token:
+        from_secret: forgejo-bot-token # needed if the Forgejo repo is private
+      app_id:
+        from_secret: jdijt-repo-sync-app-id
+      app_installation_id:
+        from_secret: jdijt-repo-sync-installation-id
+      app_private_key:
+        from_secret: jdijt-repo-sync-private-key
