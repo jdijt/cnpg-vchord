@@ -13,7 +13,7 @@ steps:
       github_url: https://github.com/jdijt/cnpg-vchord.git
       excludes:
         - ".woodpecker/**"
-      # init_history: true   # set for the very first export run only, then remove
+      init_history: true   # set for the very first export run only, then remove
       forgejo_user:
         from_secret: forgejo-bot-user
       forgejo_token:
