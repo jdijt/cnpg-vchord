@@ -13,13 +13,14 @@ steps:
       github_url: https://github.com/jdijt/cnpg-vchord.git
       excludes:
         - ".woodpecker/**"
+        - ".claude/**"
       forgejo_user:
         from_secret: forgejo-bot-user
       forgejo_token:
-        from_secret: forgejo-bot-token   # pushes copybara/pr_* branches
+        from_secret: forgejo-bot-token # pushes copybara/pr_* branches
       app_id:
-        from_secret: gh-app-id
+        from_secret: jdijt-repo-sync-app-id
       app_installation_id:
-        from_secret: gh-app-installation-id
+        from_secret: jdijt-repo-sync-installation-id
       app_private_key:
-        from_secret: gh-app-private-key
+        from_secret: jdijt-repo-sync-private-key
