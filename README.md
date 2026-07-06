@@ -48,12 +48,6 @@ spec:
       - name: vchord
 ```
 
-Then create the extension in the database (it pulls in `vector` via `CASCADE`):
-
-```sql
-CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
-```
-
 Alternatively, reference the image directly on the cluster without a catalog
 entry:
 
@@ -62,8 +56,33 @@ entry:
     extensions:
       - name: vchord
         image:
-          reference: ghcr.io/jdijt/cnpg-vchord:1.1.1-18-trixie
+          reference: ghcr.io/jdijt/cnpg-vchord:1.1.1-18-20260620183030-trixie
 ```
+
+Create the extension in the database declaratively:
+
+```yaml
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+spec:
+  name: dbname
+  owner: dbowner
+  cluster:
+    name: some-cnpg-cluster
+  extensions:
+    - name: vector
+      ensure: present
+    - name: vchord
+      ensure: present
+
+```
+
+Or via SQL:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vchord CASCADE;
+```
+
 
 ## Building locally
 
