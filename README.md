@@ -100,6 +100,6 @@ The **packaging** in this repository (Containerfile, workflows, docs) is license
 under [Apache-2.0](LICENSE).
 
 The packaged software — **VectorChord** — is **not** covered by that license. It
-is distributed under the **GNU Affero General Public License 3.0 (AGPL-3.0)** or **Elastic License v2 (ELv2)**. 
+is distributed under the **GNU Affero General Public License 3.0 (AGPL-3.0)** or **Elastic License v2 (ELv2)** (as of 27-07-2026, when I last checked VectorChord's licensing).
 The container images produced here embed VectorChord binaries and are therefore subject one of these licenses for those components. 
 See [NOTICE](NOTICE).
